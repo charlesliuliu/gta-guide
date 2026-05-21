@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community — Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="Los Santos Guide Community" />
+    <meta property="og:description" content="Join our Discord, follow us on social media, and connect with fellow GTA fans." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .community-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 32px; text-align: center; transition: all .35s;
+        }
+        .community-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+        .community-card .icon { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+        .community-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .community-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
+        .community-card .btn { margin-top: auto; }
+        .guidelines { margin-top: 40px; }
+        .guidelines h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; }
+        .guidelines ol { padding-left: 20px; color: var(--text-secondary); line-height: 2; font-size: 0.9rem; }
+        .guidelines ol li strong { color: var(--text-primary); }
+        @media (max-width: 640px) { .community-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="./index.html" class="active">Community</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a><span class="sep">/</span><span>Community</span>
+    </div>
+</div>
+
+<section style="padding: 20px 0 40px;">
+    <div class="container">
+        <h1 class="section-title" style="font-size:2rem;">&#128309; Community Hub</h1>
+        <p class="section-desc">Join the crew &mdash; connect with fellow Los Santos players and GTA6 fans.</p>
+
+        <div class="community-grid">
+            <div class="community-card">
+                <span class="icon">&#128172;</span>
+                <h3>Discord Server</h3>
+                <p>Real-time chat, LFG channels, heist team finder, and exclusive guides. Join 1,000+ members in our growing community.</p>
+                <a href="#" class="btn btn-primary">&#128279; Join Discord</a>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">Link coming soon — server under construction</p>
+            </div>
+            <div class="community-card">
+                <span class="icon">&#128038;</span>
+                <h3>Twitter / X</h3>
+                <p>Follow for daily GTA Online weekly updates, GTA6 news alerts, and community spotlights.</p>
+                <a href="#" class="btn btn-outline">&#128279; Follow @LSGuide</a>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">Account coming soon</p>
+            </div>
+            <div class="community-card">
+                <span class="icon">&#128187;</span>
+                <h3>GitHub</h3>
+                <p>This site is open source. Submit issues, suggest features, or contribute content via pull requests.</p>
+                <a href="#" class="btn btn-outline">&#128279; View on GitHub</a>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">Repository coming soon</p>
+            </div>
+            <div class="community-card">
+                <span class="icon">&#128231;</span>
+                <h3>Newsletter</h3>
+                <p>Get weekly roundups of GTA Online updates and GTA6 news delivered to your inbox every Thursday.</p>
+                <div style="display:flex;gap:8px;max-width:320px;margin:0 auto;">
+                    <input type="email" placeholder="your@email.com" style="flex:1;padding:8px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;outline:none;font-family:inherit;" />
+                    <button class="btn btn-primary" style="padding:8px 16px;font-size:0.85rem;">Subscribe</button>
+                </div>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">No spam. Unsubscribe anytime.</p>
+            </div>
+        </div>
+
+        <div class="guidelines">
+            <h2>&#128214; Community Guidelines</h2>
+            <ol>
+                <li><strong>Be respectful</strong> — Everyone was a beginner once. No gatekeeping or harassment.</li>
+                <li><strong>No exploits/cheats</strong> — Discussion of glitches is fine; sharing cheat tools or mod menus is not.</li>
+                <li><strong>Keep it relevant</strong> — GTA Online, GTA6, and Rockstar Games discussion only.</li>
+                <li><strong>Mark spoilers</strong> — GTA6 story leaks and speculation must be clearly labeled.</li>
+                <li><strong>No spam</strong> — Self-promotion or repetitive posting will result in a mute.</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="../online/index.html">GTA Online</a>
+            <a href="../gta6/index.html">GTA6</a>
+            <a href="../news/index.html">News</a>
+            <a href="./index.html">Community</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

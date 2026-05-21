@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultimate GTA Online Starter Handbook — Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="Ultimate GTA Online Starter Handbook — Free PDF" />
+    <meta property="og:description" content="50+ pages of expert GTA Online guides. Get the free PDF instantly." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        /* Lead magnet specific styles */
+        .lead-wrap {
+            margin-top: var(--header-h);
+            min-height: calc(100vh - var(--header-h));
+        }
+
+        .lead-hero {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .lead-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 600px 400px at 50% 0%, rgba(251,177,60,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .lead-hero .badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: rgba(76,175,80,0.12);
+            color: var(--green);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .lead-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 2px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+        }
+        .lead-hero h1 span {
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lead-hero .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        .lead-hero .value-prop {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .lead-hero .value-prop .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+        .lead-hero .value-prop .check {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Email capture form */
+        .email-capture {
+            max-width: 480px;
+            margin: 36px auto 0;
+            position: relative;
+            z-index: 1;
+        }
+        .email-capture .form-row {
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 4px;
+        }
+        .email-capture .form-row input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 18px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+        }
+        .email-capture .form-row input::placeholder { color: var(--text-muted); }
+        .email-capture .form-row button {
+            padding: 12px 28px;
+            border-radius: 100px;
+            border: none;
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            color: #0a0a0f;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .email-capture .form-row button:hover {
+            box-shadow: 0 6px 24px rgba(251,177,60,0.3);
+        }
+        .email-capture .note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Handbook content (hidden until email submitted) */
+        .handbook-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+            display: none;
+        }
+        .handbook-content.unlocked { display: block; }
+
+        .handbook-content .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .handbook-content .toolbar .info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .handbook-content .toolbar .info strong { color: var(--text-primary); }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            color: #0a0a0f;
+            border: none;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: inherit;
+        }
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(251,177,60,0.25);
+        }
+
+        /* Chapter styles */
+        .chapter {
+            margin-bottom: 48px;
+            page-break-before: always;
+        }
+        .chapter:first-child { page-break-before: avoid; }
+        .chapter .num {
+            font-size: 0.8rem;
+            color: var(--orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .chapter h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin: 4px 0 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        .chapter h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 20px 0 8px;
+            color: var(--orange);
+        }
+        .chapter p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .chapter ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .chapter ul li {
+            padding: 6px 0 6px 24px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        .chapter ul li::before {
+            content: '>';
+            position: absolute;
+            left: 4px;
+            color: var(--orange);
+            font-weight: 700;
+        }
+        .chapter .tip-box {
+            background: rgba(251,177,60,0.06);
+            border-left: 3px solid var(--orange);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 16px 0;
+        }
+        .chapter .tip-box strong {
+            color: var(--orange);
+        }
+        .chapter .tip-box p { margin-bottom: 0; }
+        .chapter table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.88rem;
+        }
+        .chapter table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+        }
+        .chapter table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .cover-page {
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cover-page .icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+        .cover-page h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+        .cover-page .sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+        .cover-page .meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .email-capture .form-row { flex-direction: column; border-radius: var(--radius-md); }
+            .email-capture .form-row button { width: 100%; }
+            .lead-hero .value-prop { flex-direction: column; align-items: center; }
+        }
+
+        /* Print styles for PDF save */
+        @media print {
+            .header, .footer, .back-top, .lead-hero, .email-capture, .toolbar { display: none !important; }
+            .lead-wrap { margin-top: 0; }
+            .handbook-content { display: block !important; max-width: 100%; padding: 20px 40px; }
+            .chapter { page-break-before: always; }
+            .chapter:first-child { page-break-before: avoid; }
+            .chapter h2 { font-size: 24pt; }
+            .chapter h3 { font-size: 14pt; }
+            .chapter p { font-size: 11pt; color: #333; }
+            body { background: #fff; color: #000; }
+            .chapter ul li { color: #333; }
+            .chapter table td { color: #333; }
+            .cover-page { page-break-after: always; }
+            .tip-box { border: 1px solid #fbb13c; }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="../store/index.html">Store</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="lead-wrap">
+
+    <div class="lead-hero">
+        <div class="badge">&#128218; Free PDF</div>
+        <h1>The Ultimate GTA Online<br/><span>Starter Handbook</span></h1>
+        <p class="subtitle">Everything you need to go from broke beginner to millionaire — in one downloadable guide.</p>
+
+        <div class="value-prop">
+            <div class="item"><span class="check">&#10003;</span> 50+ pages of expert knowledge</div>
+            <div class="item"><span class="check">&#10003;</span> Updated for 2026</div>
+            <div class="item"><span class="check">&#10003;</span> Printable PDF</div>
+        </div>
+
+        <div class="email-capture" id="email-capture">
+            <form class="form-row" id="lead-form">
+                <input type="email" id="lead-email" placeholder="Your email address" required />
+                <button type="submit">Get Free PDF</button>
+            </form>
+            <div class="note">No spam. Unsubscribe anytime. Instant download after signup.</div>
+            <div id="lead-success" style="display:none;padding:16px;background:rgba(76,175,80,0.08);border-radius:12px;border:1px solid rgba(76,175,80,0.2);">
+                <p style="color:var(--green);font-weight:700;margin-bottom:4px;">&#10003; You're in! Scroll down to access your PDF.</p>
+                <p style="font-size:0.85rem;color:var(--text-muted);">We'll also send you weekly GTA tips and updates.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Handbook Content -->
+    <div class="handbook-content" id="handbook-content">
+
+        <div class="toolbar">
+            <div class="info">&#128218; <strong>Ultimate Starter Handbook</strong> &middot; 50+ pages</div>
+            <button class="btn-download" onclick="window.print()">&#128229; Save as PDF</button>
+        </div>
+
+        <!-- Cover -->
+        <div class="cover-page">
+            <span class="icon">&#127918;</span>
+            <h1>The Ultimate GTA Online<br/>Starter Handbook</h1>
+            <p class="sub">2026 Edition &middot; Beginner to Millionaire</p>
+            <p class="meta">Los Santos Guide &copy; 2026 &middot; v2.1</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:32px;max-width:400px;margin-left:auto;margin-right:auto;">
+                This guide covers the essential strategies, tips, and step-by-step progressions for new GTA Online players in 2026.
+            </p>
+        </div>
+
+        <!-- Chapter 1 -->
+        <div class="chapter">
+            <div class="num">Chapter 1</div>
+            <h2>Getting Started in Los Santos</h2>
+            <p>Grand Theft Auto Online drops you into the criminal underworld of Los Santos with little more than a phone and a dream. Your first hours will determine how quickly you build wealth. Here's exactly what to do.</p>
+
+            <h3>Character Creation</h3>
+            <p>Your character's appearance has zero impact on gameplay, so don't overthink it. Pick a look and move on. The real choice is your starting path.</p>
+
+            <h3>The First Mission</h3>
+            <p>You'll be greeted by Lamar Davis and immediately thrown into "Franklin and Lamar." This tutorial mission introduces driving, shooting, and basic mechanics. Complete it, and you'll have $20,000-$50,000 in starter cash depending on the current bonus offers.</p>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> As of 2026, new players receive a $500,000 welcome bonus automatically. Check your in-game email (pause menu &rarr; Money &amp; Services) to claim it.
+            </div>
+
+            <h3>Enable 2FA for Free Money</h3>
+            <p>Link your Rockstar Social Club account and enable two-factor authentication. Rockstar rewards this with a one-time $500,000 bonus. It takes 2 minutes and doubles your starting cash.</p>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div class="chapter">
+            <div class="num">Chapter 2</div>
+            <h2>The Best First Businesses</h2>
+            <p>Your first business purchase is the most important financial decision you'll make in GTA Online. Buy the wrong one and you'll struggle. Here's the optimal order.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Business</th><th>Cost</th><th>Daily Income</th><th>Buy First?</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Kosatka Submarine</td><td>$2,200,000</td><td>$1,000,000+/hr</td><td>&#10003; Yes — unlocks Cayo Perico</td></tr>
+                    <tr><td>CEO Office + Vehicle Warehouse</td><td>$2,000,000</td><td>$240,000/hr</td><td>Second</td></tr>
+                    <tr><td>Nightclub</td><td>$1,200,000</td><td>$50,000/day (passive)</td><td>Third (after upgrades)</td></tr>
+                    <tr><td>Agency</td><td>$2,010,000</td><td>$300,000/hr</td><td>Fourth</td></tr>
+                    <tr><td>Acid Lab</td><td>$1,450,000</td><td>$350,000/hr</td><td>Alternative start</td></tr>
+                </tbody>
+            </table>
+
+            <h3>The Kosatka Strategy</h3>
+            <p>The Kosatka submarine is your single best investment. It unlocks The Cayo Perico Heist — the only heist that can be completed entirely solo with a $1,000,000+ payout per hour. Save every dollar until you own one.</p>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> Always do the Cayo Perico heist on Hard Mode. The set-up fee is the same ($25,000) but the payout is 10% higher. To activate Hard Mode, start the heist within 10 minutes of completing the previous one.
+            </div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div class="chapter">
+            <div class="num">Chapter 3</div>
+            <h2>Best First Vehicles</h2>
+            <p>Don't waste money on cars early on. Your first vehicle should be practical, not pretty. Here's what to buy and what to skip.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Vehicle</th><th>Price</th><th>Why</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sparrow (Helicopter)</td><td>$1,815,000</td><td>Fits inside Kosatka, fastest way to grind</td></tr>
+                    <tr><td>Armored Kuruma (Car)</td><td>$525,000 (trade)</td><td>Bulletproof — best for missions</td></tr>
+                    <tr><td>Oppressor MK II (Motorcycle)</td><td>$3,890,000</td><td>Endgame grind vehicle, buy after businesses</td></tr>
+                    <tr><td>Buzzard Attack Chopper</td><td>$1,750,000</td><td>Spawn instantly as CEO, great value</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Don't Buy These Yet</h3>
+            <p>Supercars, yacht, hangar aircraft, arena war vehicles — these are endgame luxuries. A new player buying a $2,000,000 supercar is the #1 mistake that slows progression.</p>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> Buy the Armored Kuruma at the "Dune Buggy" trade price by completing the "Fleeca Job" heist as host. You'll save $155,000.
+            </div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div class="chapter">
+            <div class="num">Chapter 4</div>
+            <h2>Weekly Activities Routine</h2>
+            <p>GTA Online updates every Thursday at 10 AM UTC. Here's your weekly checklist to maximize income.</p>
+
+            <h3>Thursday (Update Day)</h3>
+            <ul>
+                <li>Check Rockstar Newswire for double money events</li>
+                <li>Spin the Lucky Wheel at The Diamond Casino (free every day)</li>
+                <li>Collect the free prize at your Gun Van location</li>
+            </ul>
+
+            <h3>Daily</h3>
+            <ul>
+                <li>Nightclub safe collection ($50,000+ per day)</li>
+                <li>Agency safe collection ($5,000-$10,000 per day)</li>
+                <li>Acid Lab production refill</li>
+                <li>Street dealers — sell them your cached product</li>
+            </ul>
+
+            <h3>Weekly Priority</h3>
+            <ul>
+                <li>Do the Featured Series for 3x money</li>
+                <li>Complete Time Trials ($100,000-$200,000)</li>
+                <li>Check Casino Podium Vehicle — might win a free car</li>
+                <li>Complete the Gun Van challenge</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> Visit your nightclub popularity missions every 2 days. Keeping popularity above 90% maximizes the daily safe income at $50,000. It takes 2 minutes and beats any passive investment in the game.
+            </div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div class="chapter">
+            <div class="num">Chapter 5</div>
+            <h2>Hidden Mechanics &amp; Efficiency Tips</h2>
+
+            <h3>Request Vehicle Cooldown</h3>
+            <p>Your Personal Vehicle has a 2-second cooldown between requests. The Mechanic has a 5-minute cooldown. Always use the Personal Vehicle interaction menu for faster access.</p>
+
+            <h3>CEO/VIP Work</h3>
+            <p>Headhunter and Sightseer missions pay $20,000-$25,000 and take 5 minutes. Run these while your businesses produce in the background. Use the Buzzard or Oppressor for fastest completion.</p>
+
+            <h3>The "Find Session" Trick</h3>
+            <p>If you're stuck in a laggy or hostile lobby, use the "Find New Session" option in the pause menu. You'll keep all your mission progress and un-sold product. Never use "Leave GTA Online" — that's slower.</p>
+
+            <h3>First-person Mode</h3>
+            <p>In certain heist preps and missions, first-person mode makes you run slightly faster. Use it for time-sensitive missions. The difference is small but can save 10-15 seconds on speedruns.</p>
+
+            <h3>Quick GPS</h3>
+            <p>Open your interaction menu (hold M or touchpad) &rarr; Inventory &rarr; Player Interaction &rarr; Waypoint. Set your spawn location to your last location to avoid long drives from the hospital after death.</p>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> Buy snacks from any convenience store and armor from Ammu-Nation. In missions, open your interaction menu &rarr; Inventory &rarr; Snacks/Armor to heal up without pausing. This works during combat!
+            </div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div class="chapter">
+            <div class="num">Chapter 6</div>
+            <h2>30-Day Roadmap to Millions</h2>
+            <p>Follow this plan and you'll be a GTA Online millionaire within a month.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Week</th><th>Goal</th><th>Key Purchase</th><th>Net Worth Target</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Complete tutorial + first heists</td><td>Armored Kuruma</td><td>$500,000</td></tr>
+                    <tr><td>2</td><td>Save for Kosatka</td><td>Kosatka Submarine</td><td>$2,200,000</td></tr>
+                    <tr><td>3</td><td>Grind Cayo Perico</td><td>Sparrow helicopter</td><td>$4,000,000</td></tr>
+                    <tr><td>4</td><td>Diversify income</td><td>CEO Office + Nightclub</td><td>$7,000,000+</td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>Beyond Week 4:</strong> Add the Agency, Acid Lab, and bunker. At this point you can buy any vehicle or property you want. Welcome to the top 1% of Los Santos.</p>
+
+            <div class="tip-box">
+                <strong>&#128161; Pro Tip:</strong> Use the in-game stock market (BAWSAQ and LCN) with Lester's assassination missions. This can multiply your savings by 3-5x in the endgame. Don't do these until you've completed the story mode.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="../online/index.html">GTA Online</a>
+            <a href="../gta6/index.html">GTA6</a>
+            <a href="../news/index.html">News</a>
+            <a href="../store/index.html">Store</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+<script>
+(function() {
+    const form = document.getElementById('lead-form');
+    const emailCapture = document.getElementById('email-capture');
+    const content = document.getElementById('handbook-content');
+    const success = document.getElementById('lead-success');
+
+    // Check if already unlocked
+    if (localStorage.getItem('lsg_handbook_unlocked') === 'true') {
+        emailCapture.style.display = 'none';
+        content.classList.add('unlocked');
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('lead-email').value.trim();
+        if (!email) return;
+
+        // Store email locally
+        try {
+            let list = JSON.parse(localStorage.getItem('lsg_leads') || '[]');
+            if (!list.includes(email)) {
+                list.push(email);
+                localStorage.setItem('lsg_leads', JSON.stringify(list));
+            }
+            localStorage.setItem('lsg_handbook_unlocked', 'true');
+        } catch(_) {}
+
+        // Show success + unlock
+        form.style.display = 'none';
+        success.style.display = 'block';
+        content.classList.add('unlocked');
+
+        // Track conversion
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'lead_generated', { value: 1 });
+        }
+    });
+})();
+</script>
+</body>
+</html>

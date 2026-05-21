@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTA6 Release Countdown — Confirmed Nov 19, 2026 | Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="GTA6 Countdown — Confirmed November 19, 2026" />
+    <meta property="og:description" content="Live countdown to GTA6. Confirmed release: November 19, 2026. Track trailers, delays, and announcements." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        .countdown-page {
+            margin-top: var(--header-h);
+            min-height: calc(100vh - var(--header-h));
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero */
+        .cd-hero {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 80px 24px 60px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f23 40%, #16213e 70%, #0f3460 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        .cd-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 800px 500px at 50% 0%, rgba(251,177,60,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 500px 500px at 80% 80%, rgba(255,107,53,0.05) 0%, transparent 50%),
+                radial-gradient(ellipse 400px 400px at 20% 60%, rgba(91,141,239,0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .cd-hero .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        .cd-hero .badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: rgba(251,177,60,0.12);
+            color: var(--orange);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .cd-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            letter-spacing: 3px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+        }
+        .cd-hero h1 span {
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep), #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cd-hero .subtitle {
+            margin-top: 12px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Countdown Timer */
+        .cd-timer {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 48px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+        .cd-timer .unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+        }
+        .cd-timer .num {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            min-height: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cd-timer .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        .cd-timer .sep {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 4rem);
+            color: var(--text-muted);
+            align-self: flex-start;
+            padding-top: 4px;
+            opacity: 0.3;
+        }
+        @media (max-width: 600px) {
+            .cd-timer { gap: 12px; }
+            .cd-timer .unit { min-width: 70px; }
+            .cd-timer .sep { display: none; }
+        }
+
+        /* Target date */
+        .cd-target {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+        .cd-target strong { color: var(--text-secondary); }
+
+        /* Progress section */
+        .cd-progress-wrap {
+            max-width: 600px;
+            margin: 32px auto 0;
+            position: relative;
+            z-index: 1;
+        }
+        .cd-progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .cd-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--orange), var(--orange-deep));
+            transition: width 1s ease;
+            position: relative;
+        }
+        .cd-progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 12px rgba(251,177,60,0.6);
+        }
+        .cd-progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .cd-progress-labels .active { color: var(--orange); font-weight: 600; }
+
+        /* Email Subscribe */
+        .cd-subscribe {
+            margin-top: 48px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .cd-subscribe-inner {
+            max-width: 480px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+        .cd-subscribe-inner h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .cd-subscribe-inner p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .cd-subscribe .form-row {
+            display: flex;
+            gap: 10px;
+        }
+        .cd-subscribe .form-row input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 12px 18px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .3s;
+        }
+        .cd-subscribe .form-row input:focus {
+            border-color: var(--orange);
+        }
+        .cd-subscribe .form-row input::placeholder { color: var(--text-muted); }
+        .cd-subscribe .form-row button {
+            padding: 12px 28px;
+            border-radius: 100px;
+            border: none;
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            color: #0a0a0f;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .cd-subscribe .form-row button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(251,177,60,0.3);
+        }
+        .cd-subscribe .form-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+        @media (max-width: 500px) {
+            .cd-subscribe .form-row { flex-direction: column; }
+            .cd-subscribe .form-row button { width: 100%; }
+        }
+
+        /* Share */
+        .cd-share {
+            margin-top: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .cd-share .label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .cd-share .btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Timeline section */
+        .cd-timeline-section {
+            padding: 60px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .cd-timeline-section h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 36px;
+            padding-left: 20px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item .dot {
+            position: absolute;
+            left: -38px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-primary);
+            z-index: 1;
+        }
+        .timeline-item.confirmed .dot {
+            background: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 0 12px rgba(76,175,80,0.3);
+        }
+        .timeline-item.predicted .dot {
+            background: var(--orange);
+            border-color: var(--orange);
+            box-shadow: 0 0 12px rgba(251,177,60,0.2);
+        }
+        .timeline-item.speculative .dot {
+            background: var(--text-muted);
+            border-color: var(--text-muted);
+        }
+        .timeline-item .date {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .timeline-item.confirmed .date { color: var(--green); }
+        .timeline-item.predicted .date { color: var(--orange); }
+        .timeline-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .timeline-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .timeline-item .status-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 100px;
+            margin-top: 6px;
+        }
+        .timeline-item .status-confirmed {
+            background: rgba(76,175,80,0.12);
+            color: var(--green);
+        }
+        .timeline-item .status-predicted {
+            background: rgba(251,177,60,0.12);
+            color: var(--orange);
+        }
+        .timeline-item .status-speculative {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
+
+        /* Stats row */
+        .cd-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .cd-stat {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+        .cd-stat .num {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--orange);
+            letter-spacing: 1px;
+        }
+        .cd-stat .label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Animation */
+        .cd-timer .num.flip {
+            animation: pulse 1s ease;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+<!-- Google AdSense: uncomment after approval
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+-->
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="./index.html" class="active">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="../community/index.html">Community</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="countdown-page">
+
+    <div class="cd-hero">
+        <div class="grid-overlay"></div>
+        <div class="badge">&#9989; Date Confirmed</div>
+        <h1>GTA <span>VI</span> &mdash; Release<br/>Countdown</h1>
+        <p class="subtitle">Confirmed: November 19, 2026 &mdash; Tracking every trailer, delay, and announcement until launch day.</p>
+
+        <!-- Stats -->
+        <div class="cd-stats">
+            <div class="cd-stat">
+                <div class="num" id="stat-trailers">2</div>
+                <div class="label">Official Trailers</div>
+            </div>
+            <div class="cd-stat">
+                <div class="num" id="stat-days-elapsed">--</div>
+                <div class="label">Days Since Trailer 1</div>
+            </div>
+            <div class="cd-stat">
+                <div class="num" id="stat-confidence">99<span style="font-size:1rem;">%</span></div>
+                <div class="label">Release Confirmed</div>
+            </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="cd-timer" id="cd-timer">
+            <div class="unit">
+                <div class="num" id="cd-days">--</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="sep">:</div>
+            <div class="unit">
+                <div class="num" id="cd-hours">--</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="sep">:</div>
+            <div class="unit">
+                <div class="num" id="cd-minutes">--</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="sep">:</div>
+            <div class="unit">
+                <div class="num" id="cd-seconds">--</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+
+        <div class="cd-target">Rockstar confirmed: <strong>November 19, 2026</strong> &middot; PS5 &amp; Xbox Series X|S</div>
+
+        <!-- Progress -->
+        <div class="cd-progress-wrap">
+            <div class="cd-progress-bar">
+                <div class="cd-progress-fill" id="progress-fill" style="width:0%;"></div>
+            </div>
+            <div class="cd-progress-labels">
+                <span class="active">Trailer 1<br/>Dec 2023</span>
+                <span id="progress-now">Today<br/>May 2026</span>
+                <span>Launch<br/>Nov 19, 2026</span>
+            </div>
+        </div>
+
+        <!-- Subscribe -->
+        <div class="cd-subscribe">
+            <div class="cd-subscribe-inner">
+                <h3>&#128231; Get notified at launch</h3>
+                <p>Be the first to know when GTA6 drops. No spam, just the big news.</p>
+                <form class="form-row" id="subscribe-form">
+                    <input type="email" placeholder="Your email address" required />
+                    <button type="submit">Notify Me</button>
+                </form>
+                <div class="form-note" id="form-success" style="display:none;color:var(--green);">&#10003; You're on the list! We'll notify you at launch.</div>
+                <div class="form-note">No spam &middot; One email at launch &middot; Unsubscribe anytime</div>
+            </div>
+        </div>
+
+        <!-- Share -->
+        <div class="cd-share">
+            <div class="label">Share the countdown:</div>
+            <div class="btns">
+                <button class="share-btn" data-platform="twitter">&#120143; Twitter</button>
+                <button class="share-btn" data-platform="reddit">&#174; Reddit</button>
+                <button class="share-btn" id="copy-link">&#128279; Copy Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="cd-timeline-section">
+        <h2>&#128196; Timeline</h2>
+        <div class="timeline">
+
+            <div class="timeline-item confirmed">
+                <div class="dot"></div>
+                <div class="date">December 2023</div>
+                <h4>Trailer 1 — "Grand Theft Auto VI"</h4>
+                <p>First official trailer confirming Vice City setting, dual protagonists Lucia &amp; Jason, and a 2025 release window. Broke YouTube records with 93M views in 24 hours.</p>
+                <span class="status-tag status-confirmed">&#10003; Confirmed</span>
+            </div>
+
+            <div class="timeline-item confirmed">
+                <div class="dot"></div>
+                <div class="date">May 2025</div>
+                <h4>Trailer 2 — Gameplay Footage</h4>
+                <p>Second trailer showcasing in-engine gameplay, captured entirely on PS5. Featured locations including Port Gellhorn and the Everglades. Surpassed 475M cross-platform views in 24 hours.</p>
+                <span class="status-tag status-confirmed">&#10003; Confirmed</span>
+            </div>
+
+            <div class="timeline-item confirmed">
+                <div class="dot"></div>
+                <div class="date">September 2025</div>
+                <h4>Delay Announced — May 26, 2026</h4>
+                <p>Rockstar officially announces GTA6 is delayed from Fall 2025 to May 26, 2026. Statement cites need for "extra time to deliver the level of quality you expect and deserve."</p>
+                <span class="status-tag status-confirmed">&#10003; Confirmed</span>
+            </div>
+
+            <div class="timeline-item confirmed">
+                <div class="dot"></div>
+                <div class="date">November 2025</div>
+                <h4>Second Delay — November 19, 2026</h4>
+                <p>Rockstar announces a second delay, pushing the release to November 19, 2026. The final date is locked. Pre-orders expected to open summer 2026.</p>
+                <span class="status-tag status-confirmed">&#10003; Confirmed</span>
+            </div>
+
+            <div class="timeline-item confirmed">
+                <div class="dot"></div>
+                <div class="date">November 19, 2026</div>
+                <h4>&#127881; GTA6 Console Launch</h4>
+                <p>Grand Theft Auto VI launches on PlayStation 5 and Xbox Series X|S. The most anticipated game of the generation finally arrives.</p>
+                <span class="status-tag status-confirmed">&#10003; Confirmed</span>
+            </div>
+
+            <div class="timeline-item speculative">
+                <div class="dot"></div>
+                <div class="date">Late 2027 / Early 2028 (Estimated)</div>
+                <h4>PC Port Release</h4>
+                <p>Following Rockstar tradition (GTA5: 1.5yr, RDR2: 1yr), the PC version is expected 12&ndash;18 months after console launch. Likely on Steam and Epic Games Store with enhanced features.</p>
+                <span class="status-tag status-speculative">&#128270; Speculative</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="../online/index.html">GTA Online</a>
+            <a href="./index.html">GTA6</a>
+            <a href="../news/index.html">News</a>
+            <a href="../community/index.html">Community</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/ads.js"></script>
+<script>
+(function() {
+    const TARGET = new Date('2026-11-19T10:00:00Z'); // November 19, 2026 — confirmed release
+    const TRAILER1 = new Date('2023-12-05T14:00:00Z'); // Trailer 1 release
+
+    const elDays = document.getElementById('cd-days');
+    const elHours = document.getElementById('cd-hours');
+    const elMinutes = document.getElementById('cd-minutes');
+    const elSeconds = document.getElementById('cd-seconds');
+    const elProgress = document.getElementById('progress-fill');
+    const elElapsed = document.getElementById('stat-days-elapsed');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+        const now = new Date();
+        const diff = TARGET - now;
+
+        if (diff <= 0) {
+            elDays.textContent = '00';
+            elHours.textContent = '00';
+            elMinutes.textContent = '00';
+            elSeconds.textContent = '00';
+            elProgress.style.width = '100%';
+            return;
+        }
+
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        elDays.textContent = pad(days);
+        elHours.textContent = pad(hours);
+        elMinutes.textContent = pad(minutes);
+        elSeconds.textContent = pad(seconds);
+
+        // Progress: Trailer1 -> TARGET
+        const total = TARGET - TRAILER1;
+        const elapsed = now - TRAILER1;
+        const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+        elProgress.style.width = pct + '%';
+
+        // Days since Trailer 1
+        const daysSince = Math.floor(elapsed / 86400000);
+        if (elElapsed) elElapsed.textContent = daysSince.toLocaleString();
+
+        // Pulse seconds on change
+        elSeconds.classList.remove('flip');
+        void elSeconds.offsetWidth;
+        elSeconds.classList.add('flip');
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // Email subscribe
+    const form = document.getElementById('subscribe-form');
+    const success = document.getElementById('form-success');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = form.querySelector('input');
+            const email = input.value.trim();
+            if (!email) return;
+            // In production: POST to backend
+            // For now, demonstrate and store locally
+            try {
+                let list = JSON.parse(localStorage.getItem('gta6_waitlist') || '[]');
+                if (!list.includes(email)) {
+                    list.push(email);
+                    localStorage.setItem('gta6_waitlist', JSON.stringify(list));
+                }
+            } catch(_) {}
+            form.style.display = 'none';
+            success.style.display = 'block';
+        });
+    }
+
+    // Copy link
+    document.getElementById('copy-link')?.addEventListener('click', function() {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const orig = this.textContent;
+                this.textContent = '&#10003; Copied!';
+                setTimeout(() => this.textContent = orig, 2000);
+            });
+        }
+    });
+})();
+</script>
+
+</body>
+</html>

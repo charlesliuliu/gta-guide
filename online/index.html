@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTA Online Guides — Los Santos Guide</title>
+    <meta property="og:title" content="GTA Online Guides — Los Santos Guide" />
+    <meta property="og:description" content="Heists, money making, vehicle database, and weekly updates for GTA Online." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+<!-- Google AdSense: uncomment after approval
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+-->
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./index.html" class="active">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="../community/index.html">Community</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a><span class="sep">/</span><span>GTA Online</span>
+    </div>
+</div>
+
+<section style="padding: 20px 0 40px;">
+    <div class="container">
+        <h1 class="section-title" style="font-size:2rem;">&#127918; GTA Online Guide Hub</h1>
+        <p class="section-desc">Heists &middot; Money &middot; Vehicles &middot; Businesses &middot; Weekly Updates</p>
+    </div>
+</section>
+<!-- Ad -->
+<div class="ad-container">
+    <div class="ad-placeholder">&#128250; Advertisement (Google AdSense)</div>
+</div>
+<div class="container">
+    <section class="section" style="padding-top:0;">
+        <div class="card-grid">
+            <a href="./money/index.html" class="card card-clickable">
+                <span class="icon">&#128176;</span>
+                <h4>Money Making</h4>
+                <p>Beginner routes, daily grinding strategies, and passive income asset setups.</p>
+                <div class="card-footer"><span class="card-link">View Guides</span></div>
+            </a>
+            <a href="./heists/index.html" class="card card-clickable">
+                <span class="icon">&#128666;</span>
+                <h4>Heist Guides</h4>
+                <p>Fleeca &rarr; Pacific Standard &rarr; Doomsday &rarr; Cayo Perico &mdash; full walkthroughs.</p>
+                <div class="card-footer"><span class="card-link">View Guides</span></div>
+            </a>
+            <a href="./vehicles/index.html" class="card card-clickable">
+                <span class="icon">&#128663;</span>
+                <h4>Vehicle Database</h4>
+                <p>Performance rankings, prices, and mod recommendations for every class.</p>
+                <div class="card-footer"><span class="card-link">View Guides</span></div>
+            </a>
+            <a href="./money/beginner-guide.html" class="card card-clickable">
+                <span class="icon">&#127891;</span>
+                <h4>Beginner's Guide</h4>
+                <p>From character creation to your first property &mdash; get on your feet in 24 hours.</p>
+                <div class="card-footer">
+                    <span class="tag tag-hot">Hot</span>
+                    <span class="card-link">Read More</span>
+                </div>
+            </a>
+            <a href="./weekly/index.html" class="card card-clickable">
+                <span class="icon">&#128197;</span>
+                <h4>Weekly Update Calendar</h4>
+                <p>Track bonuses, discounts, and events &mdash; refreshed every Thursday.</p>
+                <div class="card-footer">
+                    <span class="tag tag-live">&#9679; Live</span>
+                    <span class="card-link">View Schedule</span>
+                </div>
+            </a>
+        </div>
+    </section>
+</div>
+
+<!-- Heist Calculator Tool -->
+<div class="container">
+    <section class="section">
+        <h2 class="section-title">&#128176; Heist Payout Calculator</h2>
+        <p class="section-desc">See how much you and your crew take home</p>
+        <div class="tool-card" id="heist-calc">
+            <div class="tool-row">
+                <label for="heist-select">Heist</label>
+                <select id="heist-select">
+                    <option value="cayo">Cayo Perico Heist</option>
+                    <option value="casino">Diamond Casino Heist</option>
+                    <option value="doomsday">Doomsday Heist (Act III)</option>
+                    <option value="pacific">Pacific Standard Job</option>
+                    <option value="humane">Humane Labs Raid</option>
+                    <option value="prison">Prison Break</option>
+                </select>
+            </div>
+            <div class="tool-row">
+                <label for="players-select">Players</label>
+                <select id="players-select">
+                    <option value="1">1 (Solo)</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="tool-result" id="calc-result"></div>
+        </div>
+    </section>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="./index.html">GTA Online</a>
+            <a href="../gta6/index.html">GTA6</a>
+            <a href="../news/index.html">News</a>
+            <a href="../community/index.html">Community</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/ads.js"></script>
+</body>
+</html>

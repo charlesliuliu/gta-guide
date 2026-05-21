@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Guides — Los Santos Guide</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="./index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./online/index.html">GTA Online</a></li>
+            <li><a href="./gta6/index.html">GTA6</a></li>
+            <li><a href="./news/index.html">News</a></li>
+            <li><a href="./community/index.html">Community</a></li>
+            <li><a href="./search.html" class="active">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="./index.html">Home</a><span class="sep">/</span><span>Search</span>
+    </div>
+</div>
+
+<section style="padding:40px 0;">
+    <div class="container" style="max-width:700px;">
+        <h1 class="section-title">&#128269; Search Guides</h1>
+        <p class="section-desc">Find the GTA guide you need</p>
+
+        <div class="search-box" style="border-radius:12px;padding:12px 20px;width:100%;">
+            <span class="icon" style="font-size:1.1rem;">&#128269;</span>
+            <input type="text" id="search-input-page" placeholder="Search heists, money, vehicles, GTA6&hellip;" style="width:100%;padding:8px 0;font-size:1rem;" />
+        </div>
+
+        <div id="results" style="margin-top:32px;">
+            <p style="color:var(--text-muted);">Type keywords to search. Matches titles and tags.</p>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="./index.html">Home</a>
+            <a href="./online/index.html">GTA Online</a>
+            <a href="./gta6/index.html">GTA6</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="js/nav.js"></script>
+<script src="js/app.js"></script>
+<script>
+// ---------- Local Search Index ----------
+const searchIndex = [
+    { title: 'Beginner Money-Making Guide (2026)', url: './online/money/beginner-guide.html', tags: 'money beginner starter heist cayo perico business', cat: 'GTA Online' },
+    { title: 'GTA6 Release Countdown — Live Timer', url: './gta6/countdown.html', tags: 'GTA6 countdown release timer trailer timeline confirmed November 2026', cat: 'GTA6' },
+    { title: 'GTA6 Release Date Confirmed — November 19, 2026', url: './gta6/news/release-date.html', tags: 'GTA6 release date confirmed November 2026 preorder edition price', cat: 'GTA6' },
+    { title: 'GTA Online Guide Hub', url: './online/index.html', tags: 'GTA Online heist money vehicle business mission', cat: 'GTA Online' },
+    { title: 'GTA6 Intel Hub', url: './gta6/index.html', tags: 'GTA6 map story trailer specs preorder', cat: 'GTA6' },
+    { title: 'GTA Online Heist Guide — Complete Overview', url: './online/heists/index.html', tags: 'heist fleeca prison break humane pacific standard doomsday casino cayo perico', cat: 'GTA Online' },
+    { title: 'Cayo Perico Solo Speedrun', url: './online/heists/index.html', tags: 'cayo perico heist solo kosatka el rubio', cat: 'GTA Online' },
+    { title: 'GTA Online Vehicle Database', url: './online/vehicles/index.html', tags: 'vehicle supercar sports motorcycle price performance mod', cat: 'GTA Online' },
+    { title: 'GTA6 Interactive Map', url: './gta6/maps/interactive.html', tags: 'GTA6 map interactive leonida vice city everglades keys', cat: 'GTA6' },
+    { title: 'GTA6 Map Leak Roundup', url: './gta6/maps/index.html', tags: 'GTA6 map vice city everglades keys leak 2022 trailer', cat: 'GTA6' },
+    { title: 'GTA6 Story & Character Analysis', url: './gta6/speculation/index.html', tags: 'GTA6 lucia jason story protagonist bonnie clyde', cat: 'GTA6' },
+    { title: 'GTA6 Trailer Frame-by-Frame Breakdown', url: './gta6/news/index.html', tags: 'GTA6 trailer breakdown analysis details', cat: 'GTA6' },
+    { title: '2026 Business Profitability Ranking', url: './online/money/index.html', tags: 'business nightclub salvage yard bunker profit investment', cat: 'GTA Online' },
+    { title: 'News Timeline', url: './news/index.html', tags: 'news timeline gta6 online update rumor confirmed', cat: 'News' },
+    { title: 'Weekly Update Calendar', url: './online/weekly/index.html', tags: 'weekly update double money discount ls car meet', cat: 'GTA Online' },
+    { title: 'Community Hub', url: './community/index.html', tags: 'community discord twitter social', cat: 'Community' },
+    { title: 'Premium Store — Guides & Tools', url: './store/index.html', tags: 'store premium pdf guide tool vehicle comparison membership', cat: 'Store' },
+    { title: 'Vehicle Comparison Pro — Premium Tool', url: './store/vehicle-comparison.html', tags: 'vehicle compare premium tool speed acceleration handling', cat: 'Store' },
+    { title: 'Free Starter Handbook PDF', url: './guides/beginner-handbook.html', tags: 'free pdf beginner starter guide handbook download printable', cat: 'Guides' },
+];
+
+function doSearch(q) {
+    const container = document.getElementById('results');
+    if (!q) {
+        container.innerHTML = '<p style="color:var(--text-muted);">Type keywords to search. Matches titles and tags.</p>';
+        return;
+    }
+    const terms = q.toLowerCase().split(/\s+/);
+    const matched = searchIndex.filter(item => {
+        const haystack = (item.title + ' ' + item.tags + ' ' + item.cat).toLowerCase();
+        return terms.every(t => haystack.includes(t));
+    });
+    if (matched.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-muted);">No matching guides found. Try different keywords.</p>';
+        return;
+    }
+    container.innerHTML = matched.map(item => `
+        <a href="${item.url}" style="display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:10px;transition:all .25s;hover:border-color:var(--orange);">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <h4 style="font-size:0.95rem;font-weight:700;">${item.title}</h4>
+                <span class="tag tag-info">${item.cat}</span>
+            </div>
+            <div style="color:var(--text-muted);font-size:0.82rem;margin-top:4px;">${item.tags}</div>
+        </a>
+    `).join('');
+}
+
+const input = document.getElementById('search-input-page');
+if (input) {
+    input.addEventListener('input', () => doSearch(input.value));
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+        input.value = q;
+        doSearch(q);
+    }
+}
+</script>
+</body>
+</html>

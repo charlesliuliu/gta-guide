@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store — Premium GTA Guides | Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="Los Santos Guide — Premium Store" />
+    <meta property="og:description" content="Premium GTA Online guides, tools, and resources. Level up your game." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        .store-page {
+            margin-top: var(--header-h);
+            min-height: calc(100vh - var(--header-h));
+        }
+
+        .store-hero {
+            text-align: center;
+            padding: 60px 24px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .store-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            letter-spacing: 2px;
+        }
+        .store-hero p {
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            padding: 40px 24px 60px;
+            max-width: var(--max-w);
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all .35s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+        .product-card .card-header {
+            padding: 28px 28px 0;
+        }
+        .product-card .icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .product-card .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+        }
+        .tag-premium { background: rgba(251,177,60,0.12); color: var(--orange); }
+        .tag-free { background: rgba(76,175,80,0.12); color: var(--green); }
+        .tag-coming { background: rgba(91,141,239,0.12); color: var(--blue); }
+        .product-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+        .product-card .desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .product-card .feature-list {
+            list-style: none;
+            padding: 16px 28px 0;
+            flex: 1;
+        }
+        .product-card .feature-list li {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            padding: 4px 0 4px 20px;
+            position: relative;
+        }
+        .product-card .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .product-card .card-footer {
+            padding: 20px 28px;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .product-card .price {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        .product-card .price .sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-weight: 400;
+        }
+        .product-card .price .orig {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 8px;
+            font-family: var(--font-sans);
+        }
+
+        .btn-buy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: inherit;
+        }
+        .btn-buy-primary {
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            color: #0a0a0f;
+        }
+        .btn-buy-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(251,177,60,0.25);
+        }
+        .btn-buy-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-buy-outline:hover {
+            border-color: var(--orange);
+            background: rgba(251,177,60,0.05);
+        }
+        .btn-buy-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            cursor: default;
+        }
+
+        /* Free tier notice */
+        .free-tier-notice {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            padding: 20px 24px;
+            text-align: center;
+            background: rgba(76,175,80,0.04);
+            border: 1px solid rgba(76,175,80,0.1);
+            border-radius: var(--radius-md);
+        }
+        .free-tier-notice h3 { font-size: 1rem; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+        .free-tier-notice p { font-size: 0.85rem; color: var(--text-muted); }
+    </style>
+<!-- Google AdSense: uncomment after approval
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+-->
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="./index.html" class="active">Store</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="store-page">
+    <div class="store-hero">
+        <h1>&#128722; Premium Store</h1>
+        <p>Power-up your GTA experience with premium guides, tools, and resources.</p>
+    </div>
+
+    <!-- Ad -->
+    <div class="ad-container">
+        <div class="ad-placeholder">&#128250; Advertisement (Google AdSense)</div>
+    </div>
+
+    <div class="free-tier-notice">
+        <h3>&#10003; Most content is free</h3>
+        <p>All guides, the interactive map, real-time news, and community features are free. Premium purchases support the site and unlock advanced tools.</p>
+    </div>
+
+    <div class="store-grid">
+
+        <!-- Product 1: Premium Membership -->
+        <div class="product-card">
+            <div class="card-header">
+                <span class="icon">&#127942;</span>
+                <span class="tag tag-premium">Premium</span>
+                <h3>Los Santos Guide Premium</h3>
+                <p class="desc">Unlock every premium feature on the site: advanced tools, AI analysis, and ad-free browsing.</p>
+            </div>
+            <ul class="feature-list">
+                <li>Advanced vehicle comparison with charts</li>
+                <li>Collection progress tracker (cloud-synced)</li>
+                <li>AI weekly market analysis</li>
+                <li>Downloadable PDF guides library</li>
+                <li>Ad-free experience across the site</li>
+                <li>Discord exclusive role + private channel</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price">$4.99 <span class="sub">/ month</span></div>
+                <button class="btn-buy btn-buy-primary" onclick="buyProduct('premium_monthly')">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+
+        <!-- Product 2: Lifetime Premium -->
+        <div class="product-card">
+            <div class="card-header">
+                <span class="icon">&#128640;</span>
+                <span class="tag tag-premium">Premium</span>
+                <h3>Premium Lifetime</h3>
+                <p class="desc">Same as Premium, but one payment — never pay again. Best value for dedicated players.</p>
+            </div>
+            <ul class="feature-list">
+                <li>All Premium features — forever</li>
+                <li>Early access to new tools</li>
+                <li>Lifetime PDF updates</li>
+                <li>Supporter badge on the site</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price"><span class="orig">$59.99</span> $39.99 <span class="sub">one-time</span></div>
+                <button class="btn-buy btn-buy-primary" onclick="buyProduct('premium_lifetime')">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Product 3: Ultimate PDF Bundle -->
+        <div class="product-card">
+            <div class="card-header">
+                <span class="icon">&#128218;</span>
+                <span class="tag tag-premium">PDF</span>
+                <h3>Ultimate Guide Bundle</h3>
+                <p class="desc">Complete library of downloadable PDF guides. 200+ pages covering every aspect of GTA Online.</p>
+            </div>
+            <ul class="feature-list">
+                <li>GTA Online Ultimate Encyclopedia (100+ pages)</li>
+                <li>Cayo Perico Master Guide (40+ pages)</li>
+                <li>Vehicle Database Export (all stats)</li>
+                <li>Business ROI Workbook</li>
+                <li>Free updates for 12 months</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price">$19.99 <span class="sub">one-time</span></div>
+                <button class="btn-buy btn-buy-primary" onclick="buyProduct('pdf_bundle')">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Product 4: GTA6 Prediction Report -->
+        <div class="product-card">
+            <div class="card-header">
+                <span class="icon">&#128752;</span>
+                <span class="tag tag-premium">Report</span>
+                <h3>GTA6 Investor Report</h3>
+                <p class="desc">Deep-dive analysis of every leak, trailer frame, and earnings call — updated until launch.</p>
+            </div>
+            <ul class="feature-list">
+                <li>Frame-by-frame trailer breakdowns</li>
+                <li>Map speculation with annotated screenshots</li>
+                <li>Release timeline with source analysis</li>
+                <li>Pre-order strategy guide</li>
+                <li>Updated monthly until Nov 2026</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price">$14.99 <span class="sub">one-time</span></div>
+                <button class="btn-buy btn-buy-primary" onclick="buyProduct('gta6_report')">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Product 5: Free Download (Lead Magnet) -->
+        <div class="product-card">
+            <div class="card-header">
+                <span class="icon">&#128214;</span>
+                <span class="tag tag-free">Free</span>
+                <h3>Ultimate Starter Handbook</h3>
+                <p class="desc">50+ page beginner's guide. Everything a new player needs to reach millions.</p>
+            </div>
+            <ul class="feature-list">
+                <li>Step-by-step first-week roadmap</li>
+                <li>Best business buying guide</li>
+                <li>Hidden mechanics &amp; efficiency tips</li>
+                <li>Printable PDF format</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price">$0 <span class="sub">free</span></div>
+                <a href="../guides/beginner-handbook.html" class="btn-buy btn-buy-outline">Download Free</a>
+            </div>
+        </div>
+
+        <!-- Product 6: Vehicle Tool (Premium) -->
+        <a href="./vehicle-comparison.html" class="product-card" style="text-decoration:none;cursor:pointer;">
+            <div class="card-header">
+                <span class="icon">&#128664;</span>
+                <span class="tag tag-premium">Premium</span>
+                <h3>Vehicle Comparison Pro</h3>
+                <p class="desc">Interactive tool to compare vehicles side-by-side with performance charts.</p>
+            </div>
+            <ul class="feature-list">
+                <li>Radar chart comparison (speed, accel, braking, handling)</li>
+                <li>Filter by class, price, performance</li>
+                <li>Export comparison as image</li>
+                <li>Real-time lap time simulations</li>
+            </ul>
+            <div class="card-footer">
+                <div class="price">Premium <span class="sub">included</span></div>
+                <span class="btn-buy btn-buy-outline">Try Demo</span>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="../online/index.html">GTA Online</a>
+            <a href="../gta6/index.html">GTA6</a>
+            <a href="../news/index.html">News</a>
+            <a href="./index.html">Store</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/ads.js"></script>
+
+<!-- Creem Checkout SDK -->
+<script src="https://js.creem.io/v1.js" async></script>
+<script>
+/* Creem checkout configuration
+ * =============================
+ * To activate payments:
+ * 1. Sign up at https://creem.io
+ * 2. Create products in your Creem dashboard
+ * 3. Replace 'YOUR_CREEM_API_KEY' below with your actual key
+ * 4. Replace each product ID with the IDs from your dashboard
+ */
+const CREEM_CONFIG = {
+    apiKey: 'YOUR_CREEM_API_KEY', // <-- REPLACE THIS
+    products: {
+        'premium_monthly': 'prod_premium_monthly',   // Replace with actual ID
+        'premium_lifetime': 'prod_premium_lifetime', // Replace with actual ID
+        'pdf_bundle': 'prod_pdf_bundle',             // Replace with actual ID
+        'gta6_report': 'prod_gta6_report',           // Replace with actual ID
+    }
+};
+
+function buyProduct(productId) {
+    const prodId = CREEM_CONFIG.products[productId];
+    if (!prodId || CREEM_CONFIG.apiKey === 'YOUR_CREEM_API_KEY') {
+        // Demo mode — show overlay
+        showDemoOverlay(productId);
+        return;
+    }
+    // Real Creem checkout
+    if (window.Creem) {
+        Creem.Checkout({
+            productId: prodId,
+            apiKey: CREEM_CONFIG.apiKey,
+            successRedirect: window.location.origin + '/store/success.html',
+            cancelRedirect: window.location.origin + '/store/',
+        });
+    } else {
+        // Fallback if SDK not loaded
+        window.location.href = 'https://checkout.creem.io/' + prodId;
+    }
+}
+
+/* Demo overlay — shown when Creem is not configured */
+function showDemoOverlay(productId) {
+    const names = {
+        'premium_monthly': 'Premium Monthly ($4.99/mo)',
+        'premium_lifetime': 'Premium Lifetime ($39.99)',
+        'pdf_bundle': 'Ultimate Guide Bundle ($19.99)',
+        'gta6_report': 'GTA6 Investor Report ($14.99)',
+    };
+    const name = names[productId] || 'Product';
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position:fixed;inset:0;z-index:9999;
+        background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);
+        display:flex;align-items:center;justify-content:center;
+        padding:24px;animation:fadeIn .3s ease;
+    `;
+    overlay.innerHTML = `
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:40px;max-width:420px;width:100%;text-align:center;">
+            <span style="font-size:3rem;display:block;margin-bottom:12px;">&#128722;</span>
+            <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:8px;">${name}</h2>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">
+                Payment is ready to go. To activate real purchases:
+            </p>
+            <ol style="text-align:left;font-size:0.88rem;color:var(--text-secondary);line-height:2;">
+                <li>Sign up at <strong style="color:var(--orange);">creem.io</strong></li>
+                <li>Create a product named "${name}"</li>
+                <li>Paste your API key into <strong style="color:var(--text-primary);">store/index.html</strong></li>
+            </ol>
+            <button onclick="this.closest('div[style]').remove()" style="margin-top:20px;padding:10px 28px;border:1px solid var(--border);border-radius:100px;background:transparent;color:var(--text-primary);font-size:0.88rem;cursor:pointer;font-family:inherit;">
+                Close
+            </button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+}
+</script>
+</body>
+</html>

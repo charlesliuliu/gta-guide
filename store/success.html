@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Successful — Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <style>
+        .success-page {
+            margin-top: var(--header-h);
+            min-height: calc(100vh - var(--header-h));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .success-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px 40px;
+            max-width: 460px;
+            width: 100%;
+        }
+        .success-card .icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+        .success-card h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .success-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
+        .success-card .btn {
+            display: inline-block;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="../news/index.html">News</a></li>
+            <li><a href="./index.html">Store</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="success-page">
+    <div class="success-card">
+        <span class="icon">&#9989;</span>
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your purchase. You now have access to your premium content. Check your email for confirmation and download links.</p>
+        <a href="./index.html" class="btn btn-primary">&larr; Back to Store</a>
+    </div>
+</div>
+
+<footer class="footer" style="margin-top:0;">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+    </div>
+</footer>
+<script src="../js/nav.js"></script>
+</body>
+</html>

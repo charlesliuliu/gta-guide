@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money Guides — GTA Online | Los Santos Guide</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../index.html" class="active">GTA Online</a></li>
+            <li><a href="../../gta6/index.html">GTA6</a></li>
+            <li><a href="../../news/index.html">News</a></li>
+            <li><a href="../../community/index.html">Community</a></li>
+            <li><a href="../../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a><span class="sep">/</span>
+        <a href="../index.html">GTA Online</a><span class="sep">/</span>
+        <span>Money Guides</span>
+    </div>
+</div>
+<section style="padding: 40px 0;">
+    <div class="container">
+        <h1 class="section-title">&#128176; Money Making Guides</h1>
+        <p class="section-desc">Routes, strategies, and asset setups to build your GTA Online fortune.</p>
+        <div class="card-grid">
+            <a href="./beginner-guide.html" class="card card-clickable">
+                <span class="icon">&#127891;</span>
+                <h4>Beginner's Money-Making Guide</h4>
+                <p>Zero to your first million in 24 hours. Step-by-step roadmap.</p>
+                <div class="card-footer">
+                    <span class="tag tag-hot">Hot</span>
+                    <span class="card-link">Read More</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Asset ROI Comparison Tool -->
+        <h2 class="section-title" style="margin-top:48px;">&#128202; Asset ROI Comparison</h2>
+        <p class="section-desc">Sort and compare asset profitability. Click column headers to sort.</p>
+        <div class="tool-card" id="roi-table-wrap">
+            <table class="roi-table" id="roi-table">
+                <thead>
+                    <tr>
+                        <th data-sort="name">Asset &#8645;</th>
+                        <th data-sort="price">Price &#8645;</th>
+                        <th data-sort="income">Income/Cycle &#8645;</th>
+                        <th data-sort="payback">Payback Time &#8645;</th>
+                        <th data-sort="rating">Rating &#8645;</th>
+                    </tr>
+                </thead>
+                <tbody id="roi-body"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+const roiData = [
+    { name: 'Kosatka Submarine',         price: 2200000, income: 1200000, payback: '~2 runs',   rating: 'S' },
+    { name: 'Agency (Dr. Dre Contract)', price: 2010000, income: 1000000, payback: '~3 runs',   rating: 'S' },
+    { name: 'Acid Lab',                  price: 750000,  income: 335000,  payback: '~3 runs',   rating: 'S' },
+    { name: 'Vehicle Warehouse',         price: 1500000, income: 80000,   payback: '~19 sales', rating: 'A' },
+    { name: 'CEO Office (cheapest)',     price: 1000000, income: 25000,   payback: '~40 runs',  rating: 'A' },
+    { name: 'Nightclub',                 price: 1200000, income: 150000,  payback: '~8 days',   rating: 'A' },
+    { name: 'Arcade (Casino Heist)',     price: 1235000, income: 800000,  payback: '~2 runs',   rating: 'A' },
+    { name: 'Bunker',                    price: 1165000, income: 135000,  payback: '~9 sales',  rating: 'B' },
+    { name: 'Cocaine Lockup',            price: 975000,  income: 95000,   payback: '~11 sales', rating: 'B' },
+    { name: 'Meth Lab',                  price: 910000,  income: 75000,   payback: '~13 sales', rating: 'C' },
+    { name: 'Counterfeit Cash',          price: 845000,  income: 60000,   payback: '~15 sales', rating: 'C' },
+    { name: 'Hangar',                    price: 1200000, income: 50000,   payback: '~24 sales', rating: 'C' },
+];
+
+let sortField = 'rating';
+let sortDir = 1;
+
+const ratingOrder = { 'S': 5, 'A': 4, 'B': 3, 'C': 2, 'D': 1 };
+
+function renderROI() {
+    const sorted = [...roiData].sort((a, b) => {
+        let va = a[sortField], vb = b[sortField];
+        if (sortField === 'rating') { va = ratingOrder[va]; vb = ratingOrder[vb]; }
+        if (typeof va === 'string') return sortDir * va.localeCompare(vb);
+        return sortDir * (va - vb);
+    });
+    document.getElementById('roi-body').innerHTML = sorted.map(item => `
+        <tr>
+            <td><strong>${item.name}</strong></td>
+            <td>$${item.price.toLocaleString()}</td>
+            <td>$${item.income.toLocaleString()}</td>
+            <td>${item.payback}</td>
+            <td><span class="tag ${item.rating === 'S' ? 'tag-hot' : item.rating === 'A' ? 'tag-live' : 'tag-info'}">${item.rating}</span></td>
+        </tr>
+    `).join('');
+}
+
+document.querySelectorAll('#roi-table thead th').forEach(th => {
+    th.addEventListener('click', () => {
+        const field = th.dataset.sort;
+        if (field === sortField) sortDir *= -1;
+        else { sortField = field; sortDir = field === 'name' ? 1 : -1; }
+        renderROI();
+    });
+});
+
+renderROI();
+</script>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../../index.html">Home</a>
+            <a href="../index.html">GTA Online</a>
+            <a href="../../gta6/index.html">GTA6</a>
+        </div>
+    </div>
+</footer>
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../../js/nav.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

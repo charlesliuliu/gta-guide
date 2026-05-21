@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News Timeline — Los Santos Guide</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="GTA News Timeline — Los Santos Guide" />
+    <meta property="og:description" content="Real-time GTA news feed. GTA Online weekly updates and GTA6 developments from Reddit, RSS, and our editorial team." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        .news-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+        .news-filters .label { font-size: 0.85rem; color: var(--text-muted); margin-right: 4px; }
+        .news-filters button {
+            padding: 6px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 600;
+            border: 1px solid var(--border); background: transparent; color: var(--text-secondary);
+            cursor: pointer; transition: all .25s; font-family: inherit;
+        }
+        .news-filters button:hover { border-color: var(--orange); color: var(--text-primary); }
+        .news-filters button.active { background: var(--orange); color: #0a0a0f; border-color: var(--orange); }
+        .tag-confirmed { background: rgba(76, 175, 80, 0.15); color: #4caf50; }
+        .tag-rumor { background: rgba(255, 152, 0, 0.15); color: #ff9800; }
+        .tag-speculation { background: rgba(91, 141, 239, 0.15); color: #5b8def; }
+        .tag-debunked { background: rgba(244, 67, 54, 0.15); color: #f44336; }
+        .tag-reddit { background: rgba(255, 69, 0, 0.15); color: #ff4500; }
+        .tag-rss { background: rgba(0, 153, 204, 0.15); color: #0099cc; }
+        .tag-editorial { background: rgba(251, 177, 60, 0.15); color: var(--orange); }
+        .news-timeline { position: relative; }
+        .news-timeline::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 2px; background: var(--border);
+        }
+        .news-item {
+            position: relative; padding-left: 32px; padding-bottom: 28px;
+            animation: fadeUp .5s ease both;
+        }
+        .news-item::before {
+            content: ''; position: absolute; left: -5px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--orange); border: 2px solid var(--bg-primary);
+        }
+        .news-item.source-reddit::before { background: #ff4500; }
+        .news-item.source-rss::before { background: #0099cc; }
+        .news-item .date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2px; }
+        .news-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .news-item h3 a { color: var(--text-primary); transition: color .2s; }
+        .news-item h3 a:hover { color: var(--orange); }
+        .news-item .desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px; }
+        .news-item .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .news-item .tags .tag { font-size: 0.72rem; }
+        .news-empty { text-align: center; padding: 60px 0; color: var(--text-muted); }
+        .news-status {
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+            padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); margin-bottom: 24px; font-size: 0.85rem;
+        }
+        .news-status .indicator {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green); display: inline-block;
+            animation: pulse-dot 2s infinite;
+        }
+        .news-status .indicator.loading { background: var(--orange); }
+        .news-status .indicator.error { background: #f44336; animation: none; }
+        .news-status .status-text { color: var(--text-secondary); flex: 1; }
+        .news-status .status-time { color: var(--text-muted); font-size: 0.8rem; }
+        .news-status .refresh-btn {
+            padding: 4px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+            border: 1px solid var(--border); background: transparent; color: var(--text-secondary);
+            cursor: pointer; transition: all .25s; font-family: inherit;
+        }
+        .news-status .refresh-btn:hover { border-color: var(--orange); color: var(--text-primary); }
+        .news-status .refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .server-notice {
+            background: rgba(251, 177, 60, 0.08); border: 1px solid rgba(251, 177, 60, 0.2);
+            border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px;
+            font-size: 0.85rem; color: var(--text-secondary); display: none;
+        }
+        .server-notice code {
+            background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px;
+            font-family: 'Courier New', monospace; font-size: 0.82rem;
+        }
+        @media (max-width: 480px) {
+            .news-filters button { font-size: 0.75rem; padding: 4px 12px; }
+            .news-status { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+<!-- Google AdSense: uncomment after approval
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+-->
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../online/index.html">GTA Online</a></li>
+            <li><a href="../gta6/index.html">GTA6</a></li>
+            <li><a href="./index.html" class="active">News</a></li>
+            <li><a href="../community/index.html">Community</a></li>
+            <li><a href="../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a><span class="sep">/</span><span>News</span>
+    </div>
+</div>
+
+<section style="padding: 20px 0 40px;">
+    <div class="container">
+        <h1 class="section-title" style="font-size:2rem;">&#128240; News Timeline</h1>
+        <p class="section-desc">Real-time feed &mdash; Reddit, RSS, and editorial picks &mdash; auto-refreshes every 5 minutes</p>
+
+        <!-- Server notice: shown when running on file:// -->
+        <div class="server-notice" id="server-notice">
+            &#128161; For live updates to work, serve the site via HTTP instead of file://.
+            Run <code>python3 -m http.server 8080</code> in the site folder, then open <code>http://localhost:8080</code>.
+            Static fallback content is shown below.
+        </div>
+
+        <!-- Live status bar -->
+        <div class="news-status" id="news-status">
+            <span class="indicator" id="status-indicator"></span>
+            <span class="status-text" id="status-text">Loading live news...</span>
+            <span class="status-time" id="status-time"></span>
+            <button class="refresh-btn" id="refresh-btn">&#8635; Refresh</button>
+        </div>
+
+        <div class="news-filters">
+            <span class="label">Filter:</span>
+            <button data-filter="all" class="active">All</button>
+            <button data-filter="gta6">GTA6</button>
+            <button data-filter="online">GTA Online</button>
+            <button data-filter="industry">Industry</button>
+            <span class="label" style="margin-left:16px;">Source:</span>
+            <button data-src="all" class="active">Any</button>
+            <button data-src="reddit" class="tag tag-reddit">Reddit</button>
+            <button data-src="rss" class="tag tag-rss">RSS</button>
+            <button data-src="editorial" class="tag tag-editorial">Editorial</button>
+        </div>
+
+        <div class="news-timeline" id="news-timeline"></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026</p>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="../online/index.html">GTA Online</a>
+            <a href="../gta6/index.html">GTA6</a>
+            <a href="./index.html">News</a>
+            <a href="../community/index.html">Community</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../js/nav.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/ads.js"></script>
+<script>
+// ============================================================
+//  Real-time News Engine
+//  Sources: Reddit API (CORS-friendly) + RSS (via proxy) + Static
+//  Auto-refresh: every 5 minutes
+// ============================================================
+
+// ----- Static editorial fallback (always available) -----
+const staticNews = [
+    { date: '2026-05-21', category: 'gta6', source: 'editorial', credibility: 'rumor',
+      title: 'GTA6 Pre-Order Listings Spotted at Major Retailers',
+      desc: 'Best Buy and GameStop internal systems reportedly show placeholder SKUs for GTA6. Likely automated placeholders, not a signal of imminent pre-orders.',
+      link: '../gta6/news/release-date.html' },
+    { date: '2026-05-15', category: 'online', source: 'editorial', credibility: 'confirmed',
+      title: 'GTA Online Weekly Update: 2x Special Cargo & New LC Vehicle',
+      desc: 'This week\'s refresh includes double money on Special Cargo sales, a new podium vehicle at the Diamond Casino, and 3x RP on Stunt Races.',
+      link: '../online/weekly/index.html' },
+    { date: '2026-05-10', category: 'gta6', source: 'editorial', credibility: 'speculation',
+      title: 'Trailer 3 Expected Late 2026 — Analyst Consensus',
+      desc: 'Multiple industry analysts converge on a late 2026 window for the third GTA6 trailer, likely showing gameplay and a firm release date reveal.',
+      link: '../gta6/news/release-date.html' },
+    { date: '2026-05-08', category: 'industry', source: 'editorial', credibility: 'confirmed',
+      title: 'Take-Two FY2027 Guidance Confirms Major Release',
+      desc: 'Take-Two\'s Q4 2026 earnings call reiterates "record-breaking operating performance" expected in FY2027, widely interpreted as the GTA6 launch window.',
+      link: '../gta6/news/release-date.html' },
+    { date: '2026-05-01', category: 'online', source: 'editorial', credibility: 'confirmed',
+      title: 'GTA Online Weekly Update: Acid Lab Bonuses & New Adversary Mode',
+      desc: '2x GTA$ on Acid Lab sales, new adversary mode "Chemical Extraction" added, and 40% off select MC businesses.',
+      link: '../online/weekly/index.html' },
+    { date: '2026-04-20', category: 'gta6', source: 'editorial', credibility: 'debunked',
+      title: 'Leaked Screenshot Shows GTA6 Map — Confirmed Fake',
+      desc: 'A circulating screenshot claiming to show the full GTA6 map was debunked by multiple sources. The image uses stitched-together trailer frames and fan speculation.',
+      link: null },
+    { date: '2026-04-15', category: 'online', source: 'editorial', credibility: 'confirmed',
+      title: 'April 2026 GTA Online Event Week: Double Money on Heists',
+      desc: 'All classic heists paying 2x GTA$ and RP. First-time completion bonuses also doubled. Great for new players.',
+      link: '../online/heists/index.html' },
+    { date: '2026-04-10', category: 'gta6', source: 'editorial', credibility: 'rumor',
+      title: 'Insider Suggests GTA6 PC Port Coming 12-18 Months After Console',
+      desc: 'Consistent with GTA5 and RDR2 patterns, Rockstar is reportedly targeting a 12-18 month gap between console and PC launches.',
+      link: '../gta6/news/release-date.html' },
+    { date: '2026-04-05', category: 'industry', source: 'editorial', credibility: 'confirmed',
+      title: 'Rockstar Hiring Spree for Unannounced Project',
+      desc: 'Rockstar North job listings spike for experienced gameplay engineers and AI programmers — likely GTA6 post-launch content or a new IP.',
+      link: null },
+    { date: '2026-03-28', category: 'gta6', source: 'editorial', credibility: 'speculation',
+      title: 'GTA6 to Feature Dynamic Weather & Seasons System',
+      desc: 'Trailer analysis suggests dynamic weather including hurricanes, fog, and seasonal changes. The Everglades region appears to flood during storms.',
+      link: null },
+    { date: '2026-03-20', category: 'online', source: 'editorial', credibility: 'confirmed',
+      title: 'GTA Online Cayo Perico Nerf Reverted',
+      desc: 'Rockstar quietly reverts the Cayo Perico cooldown changes after community backlash. Solo cooldown back to 10 minutes.',
+      link: '../online/money/beginner-guide.html' },
+];
+
+// ----- State -----
+let allNews = [...staticNews];
+let activeFilter = 'all';
+let activeSource = 'all';
+let isLoading = false;
+let lastFetchTime = null;
+let refreshInterval = null;
+
+// ----- DOM refs -----
+const timeline = document.getElementById('news-timeline');
+const indicator = document.getElementById('status-indicator');
+const statusText = document.getElementById('status-text');
+const statusTime = document.getElementById('status-time');
+const refreshBtn = document.getElementById('refresh-btn');
+const serverNotice = document.getElementById('server-notice');
+
+// ----- Helpers -----
+function timeAgo(dateStr) {
+    const sec = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+    if (sec < 60) return 'just now';
+    const min = Math.floor(sec / 60);
+    if (min < 60) return `${min}m ago`;
+    const hr = Math.floor(min / 60);
+    return `${hr}h ${min % 60}m ago`;
+}
+
+function setStatus(state, msg) {
+    indicator.className = 'indicator';
+    if (state === 'loading') { indicator.classList.add('loading'); statusText.textContent = msg || 'Loading...'; }
+    else if (state === 'error') { indicator.classList.add('error'); statusText.textContent = msg || 'Connection error'; }
+    else { statusText.textContent = msg || 'Live'; }
+    if (lastFetchTime) statusTime.textContent = 'Updated ' + timeAgo(lastFetchTime);
+}
+
+// ----- Convert Reddit post to our format -----
+function redditToNews(post) {
+    const title = post.data.title;
+    const desc = post.data.selftext ? post.data.selftext.slice(0, 200) + (post.data.selftext.length > 200 ? '...' : '') : post.data.url;
+    const ts = new Date(post.data.created_utc * 1000).toISOString().split('T')[0];
+    const titleLower = title.toLowerCase();
+    let category = 'industry';
+    if (titleLower.includes('gta6') || titleLower.includes('gta vi') || titleLower.includes('grand theft auto vi') || titleLower.includes('gta 6')) category = 'gta6';
+    else if (titleLower.includes('online') || titleLower.includes('heist') || titleLower.includes('money') || titleLower.includes('vehicle') || titleLower.includes('weekly')) category = 'online';
+
+    return {
+        date: ts, category, source: 'reddit', credibility: 'rumor',
+        title, desc, link: 'https://reddit.com' + post.data.permalink,
+        redditScore: post.data.score, redditComments: post.data.num_comments,
+    };
+}
+
+// ----- Convert RSS item to our format -----
+function rssToNews(item, feedLabel) {
+    const title = item.title;
+    const desc = item.description ? item.description.replace(/<[^>]*>/g, '').slice(0, 200) : '';
+    const ts = item.pubDate ? new Date(item.pubDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+    const titleLower = title.toLowerCase();
+    let category = 'industry';
+    if (titleLower.includes('gta6') || titleLower.includes('gta vi') || titleLower.includes('grand theft auto vi') || titleLower.includes('gta 6')) category = 'gta6';
+    else if (titleLower.includes('online') || titleLower.includes('rockstar')) category = 'online';
+    return { date: ts, category, source: 'rss', credibility: 'rumor', title, desc, link: item.link, feedLabel };
+}
+
+// ----- Fetch from Reddit -----
+async function fetchReddit() {
+    const subs = ['GTA6', 'GTAOnline', 'GrandTheftAutoV_PC'];
+    const promises = subs.map(sub =>
+        fetch(`https://www.reddit.com/r/${sub}/new.json?limit=8`, {
+            headers: { 'User-Agent': 'LS-Guide/1.0' }
+        }).then(r => r.json())
+    );
+    const results = await Promise.allSettled(promises);
+    const posts = [];
+    results.forEach(result => {
+        if (result.status === 'fulfilled' && result.value?.data?.children) {
+            result.value.data.children.forEach(c => posts.push(redditToNews(c)));
+        }
+    });
+    // Sort by date descending, deduplicate, limit
+    posts.sort((a, b) => b.date.localeCompare(a.date));
+    const seen = new Set();
+    return posts.filter(p => {
+        if (seen.has(p.title)) return false;
+        seen.add(p.title);
+        return true;
+    }).slice(0, 30);
+}
+
+// ----- Fetch from RSS (via rss2json proxy) -----
+async function fetchRSS() {
+    const feeds = [
+        { url: 'https://www.ign.com/rss/articles/gta-6', label: 'IGN' },
+        { url: 'https://www.gamespot.com/feeds/grand-theft-auto-vi', label: 'GameSpot' },
+    ];
+    const proxy = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    const promises = feeds.map(feed =>
+        fetch(proxy + encodeURIComponent(feed.url))
+            .then(r => r.json())
+            .then(data => (data.items || []).map(item => rssToNews(item, feed.label)))
+            .catch(() => [])
+    );
+    const results = await Promise.allSettled(promises);
+    const items = [];
+    results.forEach(r => { if (r.status === 'fulfilled') items.push(...r.value); });
+    items.sort((a, b) => b.date.localeCompare(a.date));
+    return items.slice(0, 20);
+}
+
+// ----- Master fetch -----
+async function fetchAllNews() {
+    if (isLoading) return;
+    isLoading = true;
+    refreshBtn.disabled = true;
+    setStatus('loading', 'Fetching latest news...');
+
+    try {
+        const [redditPosts, rssItems] = await Promise.allSettled([fetchReddit(), fetchRSS()]);
+        const merged = [...staticNews];
+
+        if (redditPosts.status === 'fulfilled') merged.push(...redditPosts.value);
+        if (rssItems.status === 'fulfilled') merged.push(...rssItems.value);
+
+        // If we got any external data, mark as live
+        const gotExternal = (redditPosts.status === 'fulfilled' && redditPosts.value.length > 0)
+                         || (rssItems.status === 'fulfilled' && rssItems.value.length > 0);
+
+        // Sort by date descending
+        merged.sort((a, b) => b.date.localeCompare(a.date) || (b.title || '').localeCompare(a.title || ''));
+
+        // Deduplicate by title
+        const seen = new Set();
+        allNews = merged.filter(item => {
+            const key = item.title ? item.title.toLowerCase().trim() : '';
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+
+        lastFetchTime = new Date();
+        if (gotExternal) setStatus('ok', 'Live — fetching from Reddit & RSS');
+        else setStatus('ok', 'Live feeds unavailable — showing editorial content');
+    } catch (e) {
+        setStatus('error', 'Failed to fetch live news. Showing editorial content.');
+        allNews = [...staticNews];
+    }
+
+    isLoading = false;
+    refreshBtn.disabled = false;
+    renderNews();
+    scheduleNextRefresh();
+}
+
+// ----- Render -----
+function renderNews() {
+    const filtered = allNews.filter(item => {
+        if (activeFilter !== 'all' && item.category !== activeFilter) return false;
+        if (activeSource !== 'all' && item.source !== activeSource) return false;
+        return true;
+    });
+
+    if (filtered.length === 0) {
+        timeline.innerHTML = '<div class="news-empty">No matching news items. Try changing filters.</div>';
+        return;
+    }
+
+    timeline.innerHTML = filtered.map((item, i) => {
+        const sourceLabels = {
+            reddit: '<span class="tag tag-reddit">Reddit</span>',
+            rss: '<span class="tag tag-rss">RSS</span>',
+            editorial: '<span class="tag tag-editorial">Editorial</span>',
+        };
+        const credLabels = {
+            confirmed: '<span class="tag tag-live">Confirmed</span>',
+            rumor: '<span class="tag" style="background:rgba(255,152,0,0.15);color:#ff9800;">Rumor</span>',
+            speculation: '<span class="tag" style="background:rgba(91,141,239,0.15);color:#5b8def;">Speculation</span>',
+            debunked: '<span class="tag" style="background:rgba(244,67,54,0.15);color:#f44336;">Debunked</span>',
+        };
+        const catLabels = {
+            gta6: '<span class="tag tag-new">GTA6</span>',
+            online: '<span class="tag tag-live">GTA Online</span>',
+            industry: '<span class="tag tag-info">Industry</span>',
+        };
+        const titleHtml = item.link
+            ? `<a href="${item.link}" target="${item.source !== 'editorial' ? '_blank' : '_self'}" rel="${item.source !== 'editorial' ? 'noopener' : ''}">${item.title}</a>`
+            : item.title;
+
+        const scoreHtml = item.redditScore ? ` <span style="font-size:0.75rem;color:var(--text-muted);">&#9650;${item.redditScore}</span>` : '';
+
+        return `
+            <div class="news-item source-${item.source}" style="animation-delay:${Math.min(i * 0.03, 0.5)}s">
+                <div class="date">${item.date}${scoreHtml}</div>
+                <h3>${titleHtml}</h3>
+                <div class="desc">${item.desc}</div>
+                <div class="tags">
+                    ${catLabels[item.category] || ''}
+                    ${sourceLabels[item.source] || ''}
+                    ${credLabels[item.credibility] || ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ----- Auto-refresh scheduling -----
+function scheduleNextRefresh() {
+    if (refreshInterval) clearInterval(refreshInterval);
+    refreshInterval = setInterval(fetchAllNews, 5 * 60 * 1000); // every 5 minutes
+}
+
+// ----- Filter controls -----
+document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderNews();
+    });
+});
+document.querySelectorAll('[data-src]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-src]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSource = btn.dataset.src;
+        renderNews();
+    });
+});
+
+// ----- Manual refresh -----
+refreshBtn.addEventListener('click', fetchAllNews);
+
+// ----- Detect file:// protocol and show notice -----
+if (window.location.protocol === 'file:') {
+    serverNotice.style.display = 'block';
+    setStatus('ok', 'file:// detected — showing editorial content. Use HTTP for live feeds.');
+}
+
+// ----- Bootstrap -----
+fetchAllNews();
+// Also update the "time ago" display every 30s
+setInterval(() => {
+    if (lastFetchTime) statusTime.textContent = 'Updated ' + timeAgo(lastFetchTime);
+}, 30000);
+</script>
+</body>
+</html>

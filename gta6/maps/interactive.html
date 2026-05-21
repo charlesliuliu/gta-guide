@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Map — GTA6 Leonida | Los Santos Guide</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>" />
+    <meta property="og:title" content="GTA6 Interactive Map — Leonida" />
+    <meta property="og:description" content="Explore Vice City, the Everglades, and the Keys on our fan-made interactive map." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        .map-page-wrap { padding: 20px 0 40px; }
+        .map-container {
+            position: relative; background: linear-gradient(180deg, #0a1628 0%, #0d2137 30%, #1a3a4a 60%, #2d5a3d 80%, #3a6b4a 100%);
+            border-radius: var(--radius-lg); border: 1px solid var(--border);
+            overflow: hidden; aspect-ratio: 4/3; min-height: 500px; touch-action: manipulation;
+        }
+        .map-container .grid {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px; pointer-events: none;
+        }
+        .map-container .water {
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0,100,148,0.15) 100%);
+        }
+        .map-region {
+            position: absolute; padding: 8px 16px; border-radius: var(--radius-md);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-primary); cursor: pointer; transition: all .3s;
+            font-size: 0.85rem; font-weight: 600; text-align: center; min-width: 100px;
+            z-index: 2;
+        }
+        .map-region:hover { border-color: var(--orange); transform: scale(1.05); z-index: 5; }
+        .map-region.active { border-color: var(--orange); background: rgba(251,177,60,0.15); box-shadow: 0 0 20px rgba(251,177,60,0.2); }
+        .map-region .icon { font-size: 1.2rem; display: block; margin-bottom: 2px; }
+        .map-poi {
+            position: absolute; width: 10px; height: 10px; border-radius: 50%;
+            transform: translate(-50%, -50%); cursor: pointer; transition: all .3s; z-index: 3;
+        }
+        .map-poi:hover { transform: translate(-50%, -50%) scale(2); z-index: 6; }
+        .map-poi.landmark { background: var(--orange); box-shadow: 0 0 8px rgba(251,177,60,0.5); }
+        .map-poi.beach { background: #4fc3f7; box-shadow: 0 0 8px rgba(79,195,247,0.5); }
+        .map-poi.swamp { background: #66bb6a; box-shadow: 0 0 8px rgba(102,187,106,0.5); }
+        .map-poi.city { background: #ff6b35; box-shadow: 0 0 8px rgba(255,107,53,0.5); }
+        .map-poi.hidden { display: none; }
+        .map-poi-label {
+            position: absolute; left: 16px; top: -4px; white-space: nowrap;
+            font-size: 0.7rem; color: var(--text-muted); pointer-events: none;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        }
+        .map-info-panel {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 20px; margin-top: 16px; min-height: 80px; transition: all .3s;
+        }
+        .map-info-panel .empty { color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 16px 0; }
+        .map-info-panel h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .map-info-panel .type { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+        .map-info-panel p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+        .map-legend {
+            display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+        }
+        .map-legend .item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-muted); }
+        .map-legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        @media (max-width: 768px) {
+            .map-container { min-height: 350px; }
+            .map-region { min-width: 70px; padding: 4px 10px; font-size: 0.75rem; }
+            .map-region .icon { font-size: 1rem; }
+            .map-poi-label { display: none; }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="../../index.html" class="logo"><span class="ls">LS</span><span class="cn">Guide</span></a>
+        <ul class="nav-links">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../online/index.html">GTA Online</a></li>
+            <li><a href="../index.html" class="active">GTA6</a></li>
+            <li><a href="../../news/index.html">News</a></li>
+            <li><a href="../../community/index.html">Community</a></li>
+            <li><a href="../../search.html">Search</a></li>
+        </ul>
+        <div class="search-box">
+            <span class="icon">&#128269;</span>
+            <input type="text" id="search-input" placeholder="Search guides&hellip;" />
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">&#127769;</button>
+        <button class="mobile-toggle">&#9776;</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a><span class="sep">/</span>
+        <a href="../index.html">GTA6</a><span class="sep">/</span>
+        <span>Interactive Map</span>
+    </div>
+</div>
+
+<section class="map-page-wrap">
+    <div class="container">
+        <h1 class="section-title" style="font-size:2rem;">&#128506; GTA6 Leonida Interactive Map</h1>
+        <p class="section-desc">Explore confirmed and rumored locations. Click regions and markers for details.</p>
+
+        <div class="map-legend">
+            <span style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">Filter:</span>
+            <button class="btn btn-outline" style="padding:4px 14px;font-size:0.8rem;" data-filter="all">All</button>
+            <button class="btn btn-outline" style="padding:4px 14px;font-size:0.8rem;" data-filter="city">Cities</button>
+            <button class="btn btn-outline" style="padding:4px 14px;font-size:0.8rem;" data-filter="landmark">Landmarks</button>
+            <button class="btn btn-outline" style="padding:4px 14px;font-size:0.8rem;" data-filter="beach">Beaches</button>
+            <button class="btn btn-outline" style="padding:4px 14px;font-size:0.8rem;" data-filter="swamp">Swamp</button>
+            <span class="item" style="margin-left:auto;"><span class="dot" style="background:var(--orange);"></span> Landmark</span>
+            <span class="item"><span class="dot" style="background:#4fc3f7;"></span> Beach</span>
+            <span class="item"><span class="dot" style="background:#66bb6a;"></span> Swamp</span>
+            <span class="item"><span class="dot" style="background:#ff6b35;"></span> City</span>
+        </div>
+
+        <div class="map-container" id="map">
+            <div class="grid"></div>
+            <div class="water"></div>
+
+            <!-- Regions -->
+            <div class="map-region" style="top:30%;left:25%;" data-region="vice" onclick="selectRegion('vice')">
+                <span class="icon">&#127963;</span>
+                Vice City
+                <div style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">Urban Core</div>
+            </div>
+            <div class="map-region" style="top:55%;left:15%;" data-region="everglades" onclick="selectRegion('everglades')">
+                <span class="icon">&#127794;</span>
+                The Everglades
+                <div style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">Swampland</div>
+            </div>
+            <div class="map-region" style="top:72%;left:75%;" data-region="keys" onclick="selectRegion('keys')">
+                <span class="icon">&#127796;</span>
+                The Keys
+                <div style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">Island Chain</div>
+            </div>
+            <div class="map-region" style="top:45%;left:65%;" data-region="port" onclick="selectRegion('port')">
+                <span class="icon">&#9973;</span>
+                Port Gellhorn
+                <div style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">Industrial</div>
+            </div>
+
+            <!-- POIs -->
+            <div class="map-poi city" style="top:28%;left:22%;" data-type="city" onclick="selectPOI('downtown')">
+                <div class="map-poi-label">Downtown VC</div>
+            </div>
+            <div class="map-poi beach" style="top:32%;left:28%;" data-type="beach" onclick="selectPOI('vicebeach')">
+                <div class="map-poi-label">Vice Beach</div>
+            </div>
+            <div class="map-poi landmark" style="top:35%;left:20%;" data-type="landmark" onclick="selectPOI('malibu')">
+                <div class="map-poi-label">Malibu Club</div>
+            </div>
+            <div class="map-poi landmark" style="top:25%;left:30%;" data-type="landmark" onclick="selectPOI('starfish')">
+                <div class="map-poi-label">Starfish Island</div>
+            </div>
+            <div class="map-poi swamp" style="top:53%;left:12%;" data-type="swamp" onclick="selectPOI('airboat')">
+                <div class="map-poi-label">Airboat Swamp</div>
+            </div>
+            <div class="map-poi landmark" style="top:58%;left:18%;" data-type="landmark" onclick="selectPOI('trailer')">
+                <div class="map-poi-label">Trailer Park</div>
+            </div>
+            <div class="map-poi city" style="top:48%;left:68%;" data-type="city" onclick="selectPOI('portcity')">
+                <div class="map-poi-label">Port Gellhorn</div>
+            </div>
+            <div class="map-poi beach" style="top:70%;left:72%;" data-type="beach" onclick="selectPOI('keywest')">
+                <div class="map-poi-label">Key West</div>
+            </div>
+            <div class="map-poi landmark" style="top:75%;left:80%;" data-type="landmark" onclick="selectPOI('resort')">
+                <div class="map-poi-label">Resort Island</div>
+            </div>
+            <div class="map-poi landmark" style="top:20%;left:50%;" data-type="landmark" onclick="selectPOI('military')">
+                <div class="map-poi-label">Military Base (?)</div>
+            </div>
+        </div>
+
+        <div class="map-info-panel" id="map-info">
+            <div class="empty">Click a region or point on the map to learn more about it.</div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>Los Santos Guide &copy; 2026 &nbsp;|&nbsp; Fan-made speculation based on trailers and leaks</p>
+        <div class="footer-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../online/index.html">GTA Online</a>
+            <a href="../index.html">GTA6</a>
+            <a href="../../news/index.html">News</a>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" id="back-top" title="Back to top">&#8593;</button>
+
+<script src="../../js/nav.js"></script>
+<script src="../../js/app.js"></script>
+<script>
+const poiData = {
+    downtown: {
+        title: 'Downtown Vice City', type: 'City', icon: '&#127963;',
+        desc: 'The neon-lit financial and entertainment heart of Vice City. Features a cluster of skyscrapers, the VCPD headquarters, and the downtown marina. Visible in both trailers as the iconic skyline shot at sunset.',
+    },
+    vicebeach: {
+        title: 'Vice Beach', type: 'Beach', icon: '&#127796;',
+        desc: 'A vibrant beachfront district modeled after Miami Beach. Art deco hotels, a boardwalk with restaurants and shops, and the Ocean View Hotel. Likely contains Lucia\'s starting safehouse.',
+    },
+    malibu: {
+        title: 'Malibu Club', type: 'Landmark', icon: '&#127926;',
+        desc: 'The iconic nightclub returns from GTA: Vice City, modernized for 2026. A neon-soaked exterior with a packed dance floor. Likely a story mission location and potentially a purchasable business.',
+    },
+    starfish: {
+        title: 'Starfish Island', type: 'Landmark', icon: '&#127968;',
+        desc: 'The Beverly Hills equivalent of Vice City. Luxury waterfront mansions with private docks. In GTA:VC this was the rich neighborhood; expect it to be expanded with multiple purchasable properties.',
+    },
+    airboat: {
+        title: 'Airboat Swamp', type: 'Swamp', icon: '&#127794;',
+        desc: 'The Everglades-style swamp region west of Vice City. Features airboat chases, hidden stash locations, and small communities. The 2022 leak showed Lucia navigating these channels.',
+    },
+    trailer: {
+        title: 'Everglades Trailer Park', type: 'Landmark', icon: '&#128663;',
+        desc: 'A rural trailer community in the Everglades. Likely linked to Jason\'s backstory or early missions. Represents the "Florida Man" underside of Leonida.',
+    },
+    portcity: {
+        title: 'Port Gellhorn', type: 'City', icon: '&#9973;',
+        desc: 'An industrial port town on the western coast. Container ships, warehouses, and blue-collar businesses. A contrast to glitzy Vice City. Rumored to be a hub for smuggling missions.',
+    },
+    keywest: {
+        title: 'Key West (Southern Resort)', type: 'Beach', icon: '&#127796;',
+        desc: 'The southernmost point of Leonida. A resort town with a lighthouse, marina, and tourist beaches. Connected to the mainland by a long bridge (seen in Trailer 1).',
+    },
+    resort: {
+        title: 'Private Resort Island', type: 'Landmark', icon: '&#127968;',
+        desc: 'An exclusive island resort south of the Keys. Potential heist target or purchasable property. Features a large villa, private beach, and staff quarters.',
+    },
+    military: {
+        title: 'Military Restricted Zone', type: 'Landmark', icon: '&#128737;',
+        desc: 'A rumored military installation on an island to the east. Compass. Not confirmed via any official source, but heavily speculated based on map shape and GTA tradition.',
+    },
+};
+
+const regionData = {
+    vice: {
+        title: 'Vice City Metropolitan Area', icon: '&#127963;',
+        desc: 'The main urban center of Leonida. Spans from Vice Beach in the east to the downtown financial district. Includes Starfish Island, the marina, and multiple suburban neighborhoods. Estimated to be similar in size to Los Santos in GTA5.',
+        sources: 'Confirmed via Trailer 1, Trailer 2, and 2022 leak footage'
+    },
+    everglades: {
+        title: 'The Everglades', icon: '&#127794;',
+        desc: 'A vast swamp region west of Vice City covering roughly 30% of the map. Features airboat routes, small towns, trailer parks, and hidden airstrips. Represents Rockstar\'s take on the Florida Everglades.',
+        sources: 'Visible in Trailer 1 (aerial shots) and 2022 leak footage'
+    },
+    keys: {
+        title: 'The Florida Keys', icon: '&#127796;',
+        desc: 'An island chain stretching southwest from Vice City. Connected by a scenic highway bridge. Features resort towns, private islands, and secluded beaches. The resort island at the southern tip is a likely heist location.',
+        sources: 'Trailer 1 bridge shot, Trailer 2 aerial views'
+    },
+    port: {
+        title: 'Port Gellhorn', icon: '&#9973;',
+        desc: 'An industrial port town on the western edge of Leonida. A working-class counterpoint to Vice City\'s glitz. Container terminals, warehouses, a fishing pier, and strip malls. Rumored to be Jason\'s home area.',
+        sources: 'Mentioned in insider reports, partially visible in Trailer 2'
+    },
+};
+
+let activeFilter = 'all';
+let activePoi = null;
+let activeRegion = null;
+
+function selectRegion(id) {
+    document.querySelectorAll('.map-region').forEach(r => r.classList.remove('active'));
+    const el = document.querySelector(`[data-region="${id}"]`);
+    if (el) el.classList.add('active');
+    activeRegion = id;
+    renderInfo('region', id);
+}
+
+function selectPOI(id) {
+    renderInfo('poi', id);
+}
+
+function renderInfo(type, id) {
+    const panel = document.getElementById('map-info');
+    let data;
+    if (type === 'region') {
+        data = regionData[id];
+        if (!data) return;
+        panel.innerHTML = `
+            <h3>${data.icon} ${data.title}</h3>
+            <div class="type">Region</div>
+            <p>${data.desc}</p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;">&#128270; Source: ${data.sources}</p>
+        `;
+    } else {
+        data = poiData[id];
+        if (!data) return;
+        panel.innerHTML = `
+            <h3>${data.icon} ${data.title}</h3>
+            <div class="type">${data.type}</div>
+            <p>${data.desc}</p>
+        `;
+    }
+}
+
+document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.map-poi').forEach(poi => {
+            if (filter === 'all' || poi.dataset.type === filter) {
+                poi.classList.remove('hidden');
+            } else {
+                poi.classList.add('hidden');
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
