@@ -181,8 +181,25 @@
         }
         .free-tier-notice h3 { font-size: 1rem; font-weight: 700; color: var(--green); margin-bottom: 4px; }
         .free-tier-notice p { font-size: 0.85rem; color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            .store-hero { padding: 40px 16px 32px; }
+            .store-hero h1 { font-size: 1.6rem; }
+
+            .store-grid { grid-template-columns: 1fr; gap: 16px; padding: 24px 16px 40px; }
+
+            .product-card .card-header { padding: 20px 20px 0; }
+            .product-card .feature-list { padding: 12px 20px 0; }
+            .product-card .card-footer { padding: 16px 20px; }
+            .product-card .price { font-size: 1.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .product-card .card-footer { flex-direction: column; align-items: stretch; text-align: center; }
+            .btn-buy { justify-content: center; width: 100%; }
+        }
     </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8624479561051345"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8624479561051345"
      crossorigin="anonymous"></script>
 </head>
 <body>
@@ -213,11 +230,6 @@
         <p>Power-up your GTA experience with premium guides, tools, and resources.</p>
     </div>
 
-    <!-- Ad -->
-    <div class="ad-container">
-        <div class="ad-placeholder">&#128250; Advertisement (Google AdSense)</div>
-    </div>
-
     <div class="free-tier-notice">
         <h3>&#10003; Most content is free</h3>
         <p>All guides, the interactive map, real-time news, and community features are free. Premium purchases support the site and unlock advanced tools.</p>
@@ -238,7 +250,6 @@
                 <li>Collection progress tracker (cloud-synced)</li>
                 <li>AI weekly market analysis</li>
                 <li>Downloadable PDF guides library</li>
-                <li>Ad-free experience across the site</li>
                 <li>Discord exclusive role + private channel</li>
             </ul>
             <div class="card-footer">

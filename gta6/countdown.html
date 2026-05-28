@@ -414,9 +414,29 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+
+        @media (max-width: 768px) {
+            .cd-hero { padding: 48px 16px 36px; }
+            .cd-hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); letter-spacing: 1px; }
+            .cd-timeline-section { padding: 40px 16px; }
+            .cd-timeline-section h2 { font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 28px; }
+            .timeline { padding-left: 32px; }
+            .timeline::before { left: 10px; }
+            .cd-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 16px; }
+            .cd-stat { padding: 16px; }
+            .cd-stat .num { font-size: 1.3rem; }
+            .cd-share .btns { flex-wrap: wrap; }
+        }
+
+        @media (max-width: 480px) {
+            .cd-hero { padding: 36px 12px 28px; }
+            .cd-timer .unit { min-width: 60px; }
+            .cd-timer .num { font-size: clamp(2rem, 10vw, 3rem); }
+            .cd-timer .label { font-size: 0.7rem; letter-spacing: 1px; }
+            .cd-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .cd-subscribe-inner { padding: 20px; }
+        }
     </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8624479561051345"
-     crossorigin="anonymous"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -430,6 +450,8 @@
   "mainEntityOfPage": "https://appguidebook.com/gta6/countdown.html"
 }
 </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8624479561051345"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 <header class="header">
@@ -703,9 +725,9 @@
         if (navigator.clipboard) {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 const orig = this.textContent;
-                this.textContent = '&#10003; Copied!';
+                this.textContent = '✓ Copied!';
                 setTimeout(() => this.textContent = orig, 2000);
-            });
+            }).catch(() => {});
         }
     });
 })();
