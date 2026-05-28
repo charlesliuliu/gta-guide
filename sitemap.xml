@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home -->
+  <url><loc>https://appguidebook.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+
+  <!-- Core Pages -->
+  <url><loc>https://appguidebook.com/about.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://appguidebook.com/privacy.html</loc><changefreq>monthly</changefreq><priority>0.1</priority></url>
+  <url><loc>https://appguidebook.com/dmca.html</loc><changefreq>monthly</changefreq><priority>0.1</priority></url>
+  <url><loc>https://appguidebook.com/search.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+
+  <!-- GTA Online -->
+  <url><loc>https://appguidebook.com/online/index.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://appguidebook.com/online/heists/index.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/online/money/index.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/online/money/beginner-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/online/vehicles/index.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/online/weekly/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- GTA 6 -->
+  <url><loc>https://appguidebook.com/gta6/index.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://appguidebook.com/gta6/countdown.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://appguidebook.com/gta6/maps/index.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/gta6/maps/interactive.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/gta6/news/index.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://appguidebook.com/gta6/news/release-date.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/gta6/speculation/index.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- Guides Hub -->
+  <url><loc>https://appguidebook.com/guides/index.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://appguidebook.com/guides/beginner-handbook.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- GTA Online Guides -->
+  <url><loc>https://appguidebook.com/guides/gta-online/newbie-guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/best-missions-2026.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/cayo-perico.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/casino-heist.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/doomsday-heist.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/nightclub-guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/bunker-guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/mc-business-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/ceo-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/facility-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/vehicle-rankings.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/asset-buying-order.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/weekly-event-guide.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/racing-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/mission-unlock-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/level-up-fast.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/weapons-armor-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/hidden-missions.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/money-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta-online/faq-2026.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- GTA 6 Guides -->
+  <url><loc>https://appguidebook.com/guides/gta6/everything-known.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta6/map-analysis.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta6/dual-protagonists.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta6/trailer-analysis.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta6/pc-specs.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/gta6/online-predictions.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Misc Guides -->
+  <url><loc>https://appguidebook.com/guides/misc/series-history.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://appguidebook.com/guides/misc/cheat-codes.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/guides/misc/best-mods.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://appguidebook.com/guides/misc/beginner-mistakes.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Community & News -->
+  <url><loc>https://appguidebook.com/community/index.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://appguidebook.com/news/index.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+
+  <!-- Store -->
+  <url><loc>https://appguidebook.com/store/index.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://appguidebook.com/store/vehicle-comparison.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://appguidebook.com/store/success.html</loc><changefreq>monthly</changefreq><priority>0.1</priority></url>
+</urlset>

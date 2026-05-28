@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /store/success.html
+
+Sitemap: https://appguidebook.com/sitemap.xml
+
+# Crawl-delay: 1
